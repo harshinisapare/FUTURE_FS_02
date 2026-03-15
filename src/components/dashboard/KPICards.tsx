@@ -1,38 +1,40 @@
-import { TrendingUp, Users, DollarSign, Zap } from 'lucide-react';
+import { TrendingUp, Users, IndianRupee, Zap } from 'lucide-react';
 import { useLeadStore } from '@/lib/lead-store';
 
 export function KPICards() {
   const getStats = useLeadStore((s) => s.getStats);
   const stats = getStats();
 
+  const formatINR = (val: number) => {
+    if (val >= 100000) return `₹${(val / 100000).toFixed(1)}L`;
+    if (val >= 1000) return `₹${(val / 1000).toFixed(0)}K`;
+    return `₹${val}`;
+  };
+
   const kpis = [
     {
       label: 'Pipeline Value',
-      value: `$${(stats.totalPipeline / 1000).toFixed(0)}K`,
-      icon: DollarSign,
+      value: formatINR(stats.totalPipeline),
+      icon: IndianRupee,
       change: '+18%',
-      positive: true,
     },
     {
       label: 'Conversion Rate',
       value: `${stats.conversionRate}%`,
       icon: TrendingUp,
       change: '+3.2%',
-      positive: true,
     },
     {
       label: 'Active Leads',
       value: stats.activeLeads.toString(),
       icon: Users,
       change: `${stats.newThisWeek} new this week`,
-      positive: true,
     },
     {
       label: 'Velocity',
       value: `${stats.newThisWeek}/wk`,
       icon: Zap,
       change: '+12% vs last',
-      positive: true,
     },
   ];
 
