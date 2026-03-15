@@ -31,5 +31,5 @@
   },
   "include": [
     "src"
-  ]
+, "server/server", "server/routes", "server/index.js", "server/models"  ]
 }

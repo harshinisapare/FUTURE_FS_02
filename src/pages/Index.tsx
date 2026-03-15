@@ -21,8 +21,14 @@ export default function Index() {
   const [view, setView] = useState<View>('dashboard');
   const [collapsed, setCollapsed] = useState(false);
   const selectedLeadId = useLeadStore((s) => s.selectedLeadId);
+  const fetchLeads = useLeadStore((s) => s.fetchLeads);
   const { isDark, toggle: toggleTheme } = useThemeStore();
   const logout = useAuthStore((s) => s.logout);
+
+  // Load leads from MongoDB when dashboard opens
+  useEffect(() => {
+    fetchLeads();
+  }, []);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
