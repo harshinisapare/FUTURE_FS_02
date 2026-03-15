@@ -31,7 +31,8 @@ const sourceLabels: Record<string, string> = {
 };
 
 export function AnalyticsPanel() {
-  const stats = useLeadStore((s) => s.getStats());
+  const getStats = useLeadStore((s) => s.getStats);
+  const stats = getStats();
 
   const pieData = Object.entries(stats.bySource).map(([key, value]) => ({
     name: sourceLabels[key] || key,
