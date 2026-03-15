@@ -2,7 +2,8 @@ import { TrendingUp, Users, DollarSign, Zap } from 'lucide-react';
 import { useLeadStore } from '@/lib/lead-store';
 
 export function KPICards() {
-  const stats = useLeadStore((s) => s.getStats());
+  const getStats = useLeadStore((s) => s.getStats);
+  const stats = getStats();
 
   const kpis = [
     {
