@@ -110,7 +110,7 @@ export function AnalyticsPanel() {
                   style={{ background: SOURCE_COLORS[i % SOURCE_COLORS.length] }}
                 />
                 <span className="text-muted-foreground">{entry.name}</span>
-                <span className="font-medium tabular-nums ml-auto">{entry.value}</span>
+                <span className="font-medium tabular-nums ml-auto">{entry.value as number}</span>
               </div>
             ))}
           </div>
