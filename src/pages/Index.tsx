@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, BarChart3, Settings, Command, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, Command, ChevronLeft, ChevronRight, Moon, Sun, LogOut } from 'lucide-react';
 import { KPICards } from '@/components/dashboard/KPICards';
 import { LeadGrid } from '@/components/grid/LeadGrid';
 import { LeadDrawer } from '@/components/drawer/LeadDrawer';
 import { AnalyticsPanel } from '@/components/dashboard/AnalyticsPanel';
 import { AddLeadDialog } from '@/components/dashboard/AddLeadDialog';
 import { useLeadStore } from '@/lib/lead-store';
+import { useThemeStore } from '@/lib/theme-store';
+import { useAuthStore } from '@/lib/auth-store';
 
 type View = 'dashboard' | 'leads' | 'analytics';
 
@@ -19,9 +21,9 @@ export default function Index() {
   const [view, setView] = useState<View>('dashboard');
   const [collapsed, setCollapsed] = useState(false);
   const selectedLeadId = useLeadStore((s) => s.selectedLeadId);
-  const setSearchQuery = useLeadStore((s) => s.setSearchQuery);
+  const { isDark, toggle: toggleTheme } = useThemeStore();
+  const logout = useAuthStore((s) => s.logout);
 
-  // Cmd+K shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -71,7 +73,26 @@ export default function Index() {
           ))}
         </nav>
 
-        <div className="p-2 border-t border-border">
+        <div className="p-2 border-t border-border space-y-0.5">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors text-caption"
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {!collapsed && <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>}
+          </button>
+
+          {/* Logout */}
+          <button
+            onClick={logout}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:text-destructive hover:bg-secondary transition-colors text-caption"
+          >
+            <LogOut className="h-4 w-4" />
+            {!collapsed && <span>Logout</span>}
+          </button>
+
+          {/* Collapse */}
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors text-caption"
@@ -84,7 +105,6 @@ export default function Index() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Bar */}
         <header className="flex items-center justify-between px-6 py-3 border-b border-border">
           <div>
             <h1 className="text-section font-semibold heading-tight">
@@ -106,7 +126,6 @@ export default function Index() {
           </div>
         </header>
 
-        {/* Content Area */}
         <div className="flex-1 flex overflow-hidden">
           <div className="flex-1 overflow-y-auto">
             {view === 'dashboard' && (
@@ -130,8 +149,6 @@ export default function Index() {
               </div>
             )}
           </div>
-
-          {/* Right Drawer */}
           <LeadDrawer />
         </div>
       </div>

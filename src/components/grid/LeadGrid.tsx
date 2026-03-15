@@ -100,7 +100,7 @@ export function LeadGrid() {
             </div>
             <div className="flex items-center justify-end">
               <span className="text-ui font-medium tabular-nums">
-                ${(lead.value / 1000).toFixed(0)}K
+                ₹{(lead.value / 1000).toFixed(0)}K
               </span>
             </div>
             <div className="flex items-center justify-end">

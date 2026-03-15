@@ -1,34 +1,34 @@
 import { Lead, LeadSource, LeadStatus } from './types';
 
 const names = [
-  'Sarah Chen', 'Marcus Johnson', 'Elena Rodriguez', 'James Mitchell', 'Priya Sharma',
-  'David Kim', 'Rachel Foster', 'Omar Hassan', 'Lisa Wang', 'Thomas Anderson',
-  'Maya Patel', 'Alex Turner', 'Sofia Morales', 'Ryan O\'Brien', 'Aisha Khan',
-  'Chris Nakamura', 'Emma Davis', 'Luca Rossi', 'Nina Johansson', 'Kevin Park',
-  'Hannah Meyer', 'Carlos Silva', 'Victoria Chang', 'Daniel Wright', 'Fatima Al-Salem',
-  'Jake Morrison', 'Yuki Tanaka', 'Olivia Bennett', 'Samuel Okafor', 'Isabel Fernandez',
+  'Aarav Sharma', 'Priya Patel', 'Rohan Mehta', 'Ananya Gupta', 'Vikram Singh',
+  'Sneha Reddy', 'Arjun Nair', 'Kavya Iyer', 'Rajesh Kumar', 'Divya Joshi',
+  'Aditya Verma', 'Meera Kapoor', 'Siddharth Rao', 'Ishita Banerjee', 'Karan Malhotra',
+  'Neha Agarwal', 'Harsh Pandey', 'Pooja Deshmukh', 'Varun Choudhary', 'Riya Saxena',
+  'Amit Tiwari', 'Shreya Bhatt', 'Manish Kulkarni', 'Ankita Mishra', 'Deepak Chauhan',
+  'Tanvi Shah', 'Nikhil Srivastava', 'Sakshi Dubey', 'Rahul Thakur', 'Swati Pillai',
 ];
 
 const companies = [
-  'TechNova Inc.', 'Vertex Solutions', 'Atlas Digital', 'Quantum Labs', 'Pinnacle Group',
-  'Ember Studios', 'Nexus Dynamics', 'Horizon Media', 'Catalyst Corp', 'Zephyr Analytics',
-  'Forge Industries', 'Pulse Networks', 'Slate Ventures', 'Crest Consulting', 'Vibe Creative',
+  'Infosys Ltd.', 'Wipro Technologies', 'TCS Digital', 'Zoho Corp', 'Freshworks Inc.',
+  'Razorpay Pvt. Ltd.', 'Flipkart Internet', 'Ola Cabs', 'Swiggy Technologies', 'Zerodha Broking',
+  'PhonePe Digital', 'Paytm Payments', 'BYJU\'s Education', 'Meesho Supply', 'Unacademy Learning',
 ];
 
 const sources: LeadSource[] = ['website', 'referral', 'social', 'email', 'cold-call', 'event'];
 const statuses: LeadStatus[] = ['new', 'contacted', 'converted'];
 
 const noteTemplates = [
-  'Interested in enterprise plan. Wants a demo next week.',
-  'Followed up via email. Awaiting response.',
-  'Had a great call. Very interested in API integrations.',
-  'Budget approved. Moving to contract phase.',
-  'Needs custom onboarding for team of 50+.',
-  'Referred by existing client. High priority.',
-  'Requested pricing breakdown for annual plan.',
-  'Met at conference. Strong product-market fit.',
-  'Competitor evaluation in progress. Need to highlight differentiators.',
-  'Decision maker is the CTO. Schedule technical deep-dive.',
+  'Enterprise plan mein interest hai. Next week demo chahiye.',
+  'Email se follow up kiya. Response ka wait kar rahe hain.',
+  'Bahut achhi call thi. API integrations mein interest hai.',
+  'Budget approve ho gaya. Contract phase mein move kar rahe hain.',
+  '50+ team ke liye custom onboarding chahiye.',
+  'Existing client se referral aaya hai. High priority.',
+  'Annual plan ki pricing breakdown maangi hai.',
+  'Conference mein mile the. Strong product-market fit.',
+  'Competitor evaluation chal raha hai. Differentiators highlight karne hain.',
+  'Decision maker CTO hai. Technical deep-dive schedule karna hai.',
 ];
 
 function randomDate(daysBack: number): Date {
@@ -49,16 +49,18 @@ export function generateMockLeads(count: number = 30): Lead[] {
     const status = statuses[Math.floor(Math.random() * 3)];
     const createdAt = randomDate(60);
     const notesCount = Math.floor(Math.random() * 3) + (status === 'new' ? 0 : 1);
+    const companyName = companies[i % companies.length];
+    const domain = companyName.toLowerCase().replace(/[^a-z]/g, '') + '.in';
     
     return {
       id: randomId(),
       name,
-      email: `${name.toLowerCase().replace(/[^a-z]/g, '.')}@${companies[i % companies.length].toLowerCase().replace(/[^a-z]/g, '')}.com`,
-      phone: `+1 (${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
-      company: companies[i % companies.length],
+      email: `${name.toLowerCase().replace(/[^a-z]/g, '.')}@${domain}`,
+      phone: `+91 ${Math.floor(Math.random() * 90000 + 10000)} ${Math.floor(Math.random() * 90000 + 10000)}`,
+      company: companyName,
       source: sources[Math.floor(Math.random() * sources.length)],
       status,
-      value: Math.floor(Math.random() * 50) * 1000 + 5000,
+      value: Math.floor(Math.random() * 50) * 10000 + 50000,
       notes: Array.from({ length: notesCount }, () => ({
         id: randomId(),
         text: noteTemplates[Math.floor(Math.random() * noteTemplates.length)],

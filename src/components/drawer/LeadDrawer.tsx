@@ -77,7 +77,7 @@ export function LeadDrawer() {
 
             <div className="flex items-center justify-between pt-2">
               <span className="text-kpi font-bold tabular-nums">
-                ${lead.value.toLocaleString()}
+                ₹{lead.value.toLocaleString('en-IN')}
               </span>
               <button
                 onClick={handleArchive}
