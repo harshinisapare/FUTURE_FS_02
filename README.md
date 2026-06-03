@@ -106,9 +106,4 @@ Add environment variables: MONGODB_URI, PORT, FRONTEND_URL
 Generate domain and deploy
 
 
-Author
-Harshini Sapare
-GitHub: @harshinisapare
 
-License
-This project is built as part of Future Interns — Full Stack Development Program (Task 2).
